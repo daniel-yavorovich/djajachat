@@ -1,0 +1,23 @@
+{% extends "chat/base.html" %}
+
+{% block extraheads %}
+<style type="text/css" media="all">
+  	#login_form {
+  		padding: 30px;
+			text-align: center;
+		}
+  </style>
+{% endblock extraheads %}
+
+{% block content %}
+	<div id="login_form" align="center">
+		<h3>Press First and Last Name Origin</h3>
+		<form method="POST" action="{% url login %}">
+			{% csrf_token %}
+			<table border="0">
+				{{ form }}
+			</table>
+			<input type="submit" value="Log in">
+		</form>
+	</div>
+{% endblock content %}

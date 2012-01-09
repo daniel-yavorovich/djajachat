@@ -1,0 +1,70 @@
+{% extends "chat/base.html" %}
+
+{% block extraheads %}
+	<!--
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+	-->
+	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+	<script type="text/javascript">
+		function ScrollDown(div_id) {
+			var objDiv = document.getElementById(div_id);
+			objDiv.scrollTop = objDiv.scrollHeight;
+		}
+  	$(document).ready(function() { 
+			$('#send_form').ajaxForm(function() {
+				oFormObject = document.forms['send_form'];
+				oFormElement = oFormObject.elements["message"];
+				oFormElement.value = '';
+				ScrollDown("messages_block");
+			});
+			$("#messages_block").load("{% url process %}");
+   		var refreshId = setInterval(function() {
+	      $("#messages_block").load('{% url process %}?randval='+ Math.random());
+  	    ScrollDown("messages_block");
+   		}, 1000);
+   		$.ajaxSetup({ cache: false });
+   		$('#send_form').keyup(function(e) {
+    		if(e.keyCode == 13) {
+    			$('#send_form').submit();
+	    	}
+  	  });
+		}); 
+  </script>
+  <style type="text/css" media="all">
+  	#messages_block {
+				width: 400px;
+				height: 200px;
+				border: 1px solid gray;
+				overflow: auto;
+				text-align: left;
+		}
+		
+		#message {
+			width: 394px;
+			height: 20px;
+			border: 1px solid gray;
+		}
+		
+		#manage {
+			position: absolute;
+			top: 5px;
+			left: 270px;
+		}
+  </style>
+{% endblock extraheads %}
+
+{% block content %}
+	<div id="manage">
+		Вы в эфире. <a href="{% url logout %}">Покинуть</a>
+	</div>
+	<div id="messages_block">
+	</div>
+	<div>
+		<form id="send_form" method="POST" action="{% url send %}">
+			{% csrf_token %}
+			<textarea id="message" name="message"></textarea>
+		</form>
+  </div>
+{% endblock content %}

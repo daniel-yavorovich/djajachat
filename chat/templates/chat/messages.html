@@ -1,0 +1,10 @@
+{% for message in messages %}
+	{% if message.direction == 1 %}
+		<span style="color: blue"><b>{{ resource.first_name }} {{ resource.last_name }}</b>
+	{% else %}
+		<span style="color: red"><b>{{ message.get_direction_display }}</b>
+	{% endif %}
+		: {{ message.message }}
+	</span>
+	<br>
+{% endfor %}

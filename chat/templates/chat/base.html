@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="language" content="ru-RU" />
+		<title>Djajachat</title>
+		<style type="text/css" media="all">
+    	html, body {
+				background: none repeat scroll 0 0 #F6F6F6;
+				color: #333333;
+				font: 14px Verdana,sans-serif;
+				padding: 0;
+				margin: 0;
+			}
+			
+			a:link {
+				text-decoration: none;
+				color: #802626;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #802626;
+			}
+
+			a:active {
+				text-decoration: none;
+				color: #802626;
+			}
+
+			a:hover {
+				text-decoration: underline;
+				color: #802626;
+			}
+
+			input, textarea, select, .form-row p {
+    		margin: 2px 0;
+    		padding: 2px 3px;
+    		vertical-align: middle;
+    		font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+    		font-weight: normal;
+    		font-size: 11px;
+			}
+
+			textarea {
+    		vertical-align: top !important;
+			}
+
+			input[type=text], input[type=password], textarea, select, .vTextField {
+    		border: 1px solid #ccc;
+			}
+
+			.button, input[type=submit], input[type=button], .submit-row input {
+    		padding: 3px 5px;
+    		color: black;
+    		border: 1px solid #bbb;
+    		border-color: #ddd #aaa #aaa #ddd;
+			}
+
+			.button:active, input[type=submit]:active, input[type=button]:active {
+    		background-position: top;
+			}
+
+			.button[disabled], input[type=submit][disabled], input[type=button][disabled] {
+				background-position: bottom;
+				opacity: 0.4;
+			}
+
+			.button.default, input[type=submit].default, .submit-row input.default {
+    		border: 2px solid #5b80b2;
+    		background: #7CA0C7 bottom repeat-x;
+    		font-weight: bold;
+    		color: white;
+    		float: right;
+			}
+
+			.button.default:active, input[type=submit].default:active {
+    		background-position: top;
+			}
+
+			.button[disabled].default, input[type=submit][disabled].default, input[type=button][disabled].default {
+				background-position: bottom;
+				opacity: 0.4;
+			}
+			
+			#content {
+				width: 400px;
+				height: 230px;
+				border: 1px solid gray;
+				text-aling: center;
+				padding: 30px 20px 20px 20px;
+			}
+  	</style>
+		{% block extraheads %}
+		{% endblock extraheads %}
+	</head>
+	<body>
+		<div id="content">
+			{% block content %}
+			{% endblock content %}
+		</div>
+	</body>
+</html>

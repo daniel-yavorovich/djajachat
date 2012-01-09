@@ -1,0 +1,18 @@
+{% extends "chat/base.html" %}
+
+{% block extraheads %}
+<style type="text/css" media="all">
+  	#logout {
+  		padding: 80px;
+			text-align: center;
+		}
+  </style>
+{% endblock extraheads %}
+
+{% block content %}
+	<div id="logout">
+		Вы успешно вышли из чата.
+		<br>
+		<a href="{% url login %}">Войти</a>
+	</div>
+{% endblock content %}
