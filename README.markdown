@@ -1,6 +1,24 @@
 Djajachat
 ==================================
-Djajachat (Django Ajax Chat) - it is the Open Source chat based on Django and jQuery-XMPP-plugin (https://github.com/maxpowel/jQuery-XMPP-plugin)
+Djajachat (Django Ajax Chat) - it is the Open Source Live Chat based on Django and jQuery-XMPP-plugin (https://github.com/maxpowel/jQuery-XMPP-plugin).
+
+License
+==================================
+This file is part of Djajachat.
+
+Djajachat is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Djajachat is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Djajachat.  If not, see <http://www.gnu.org/licenses/>.
+
 
 Requirements
 -----------
