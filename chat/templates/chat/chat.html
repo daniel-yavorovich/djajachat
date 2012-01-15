@@ -1,44 +1,69 @@
 {% extends "chat/base.html" %}
 
 {% block extraheads %}
-	<!--
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
-	-->
 	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.form.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.xmpp.js"></script>
 	<script type="text/javascript">
-		function ScrollDown(div_id) {
-			var objDiv = document.getElementById(div_id);
-			objDiv.scrollTop = objDiv.scrollHeight;
-		}
-  	$(document).ready(function() { 
-			$('#send_form').ajaxForm(function() {
-				oFormObject = document.forms['send_form'];
-				oFormElement = oFormObject.elements["message"];
-				oFormElement.value = '';
-				ScrollDown("messages_block");
-			});
-			$("#messages_block").load("{% url process %}");
-   		var refreshId = setInterval(function() {
-	      $("#messages_block").load('{% url process %}?randval='+ Math.random());
-  	    ScrollDown("messages_block");
-   		}, 1000);
-   		$.ajaxSetup({ cache: false });
-   		$('#send_form').keyup(function(e) {
-    		if(e.keyCode == 13) {
-    			$('#send_form').submit();
-	    	}
-  	  });
-		}); 
+				function ScrollDown(div_id) {
+					var objDiv = document.getElementById(div_id);
+					objDiv.scrollTop = objDiv.scrollHeight;
+				}
+				function addElement(dist, text) {
+ 	 				var ni = document.getElementById('messages_block');
+  				var numi = document.getElementById('messages_block');
+  				var num = (document.getElementById('messages_block').value -1)+ 2;
+  				numi.value = num;
+  				var newdiv = document.createElement('div');
+  				var divIdName = 'my'+num+'Div';
+  				newdiv.setAttribute('id',divIdName);
+  				if (dist == "touser") {
+  					newdiv.setAttribute('style', 'color: red;');
+  				}
+  				else {
+  					newdiv.setAttribute('style', 'color: blue;');
+  				}
+  				newdiv.innerHTML = text;
+  				ni.appendChild(newdiv);
+  				ScrollDown("messages_block");
+				}
+   			$.xmpp.connect({jid:"{{ jabber_id }}", password:"{{ jabber_pass }}", resource:"{{ first_name }}_{{ last_name }}", url:"{{ http_bind }}",
+   			onDisconnect:function() {
+   				$.xmpp.setPresence("offline");
+   			},
+   			onConnect: function() {
+  				document.getElementById("messages_block").innerHTML = "<b>{{ first_name }} {{ last_name }}</b>, Вы вошли в чат. Пожалуйста, опишите свой вопрос.<br>";
+  				$.xmpp.setPresence(null);
+   			},
+   			onIq: function(iq){
+   				console.log("onIq");
+   			},
+   			onMessage: function(message){
+        	addElement("touser", "<b>Admin</b>: " + message.body);
+   			},
+   			onPresence: function(presence){
+        	console.log("New presence of " + presence.from + " is " + presence.show);
+   			}
+   			});
+   			function send_message(event) {
+   				var message_input =  document.getElementById("message");
+   			  if (message_input.value == '\n') {
+						message_input.value = '';
+					}
+   				if (event.keyCode == 13) { 	
+   					$.xmpp.sendMessage({ from:"{{ jabber_id }}", to:"{{ jabber_recipient }}", body: message_input.value, resource: "{{ first_name }}_{{ last_name }}"});
+   					addElement("toadmin", "<b>{{ first_name }} {{ last_name }}</b>: " + message_input.value);
+						message_input.value = '';
+					}
+   			}
   </script>
   <style type="text/css" media="all">
   	#messages_block {
-				width: 400px;
-				height: 200px;
-				border: 1px solid gray;
-				overflow: auto;
-				text-align: left;
+			width: 400px;
+			height: 200px;
+			border: 1px solid gray;
+			overflow: auto;
+			text-align: left;
 		}
 		
 		#message {
@@ -57,14 +82,11 @@
 
 {% block content %}
 	<div id="manage">
-		Вы в эфире. <a href="{% url logout %}">Покинуть</a>
+		Вы в эфире. <a href="{% url chat_logout %}">Покинуть</a>
 	</div>
 	<div id="messages_block">
 	</div>
 	<div>
-		<form id="send_form" method="POST" action="{% url send %}">
-			{% csrf_token %}
-			<textarea id="message" name="message"></textarea>
-		</form>
+			<textarea id="message" onkeydown="send_message(event);"></textarea>
   </div>
 {% endblock content %}

@@ -7,7 +7,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Admin User', 'admin@examplecom'),
+    ('Admin', 'admin@example.net'),
 )
 
 MANAGERS = ADMINS
@@ -17,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'djajachat',                      # Or path to database file if using sqlite3.
         'USER': 'djajachat',                      # Not used with sqlite3.
-        'PASSWORD': 'passwork',                  # Not used with sqlite3.
+        'PASSWORD': 'wuVah9piet',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -117,13 +117,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'annoying',
     'chat',
 )
 
 # DjaJAChat
-JABBER_ID = 'bot@example.com'
+JABBER_ID = 'shared@example.net'
 JABBER_PASSWORD = 'secret'
-JABBER_RECIPIENT = 'admin@example.com'
+JABBER_RECIPIENT = 'admin@example.net'
+JABBER_HTTP_BIND_URL = "http://example.net:5280/http-bind/"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

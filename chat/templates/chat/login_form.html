@@ -12,7 +12,7 @@
 {% block content %}
 	<div id="login_form" align="center">
 		<h3>Press First and Last Name Origin</h3>
-		<form method="POST" action="{% url login %}">
+		<form method="POST" action="{% url chat %}">
 			{% csrf_token %}
 			<table border="0">
 				{{ form }}

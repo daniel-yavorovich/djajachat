@@ -94,7 +94,7 @@
 		{% block extraheads %}
 		{% endblock extraheads %}
 	</head>
-	<body>
+	<body {% block extrabody %}{% endblock extrabody %}>
 		<div id="content">
 			{% block content %}
 			{% endblock content %}
